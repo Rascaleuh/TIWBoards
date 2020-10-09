@@ -7,7 +7,7 @@
     "start": "node server/index.js",
     "test": "echo \"Error: pas de tests pour le moment\" && exit 1",
     "build": "webpack --mode production",
-    "dev": "webpack --mode development && node server/index.js"
+    "dev": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "bootstrap": "^4.5.2",
     "css-loader": "^4.3.0",
     "eslint": "^7.9.0",
@@ -27,6 +28,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "express": "^4.17.1",
+    "material-ui-icons": "^1.0.0-beta.36",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",

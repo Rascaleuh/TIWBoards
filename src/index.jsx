@@ -1,11 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Titre from './components/titre';
+/* eslint-disable */
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 
-const Index = () => (
-  <div className="container">
-    <Titre />
-  </div>
-);
-ReactDOM.render(<Index />, document.getElementById('root'));
+import AppToolbar from './components/AppToolbar/AppToolbar';
+import Board from './components/Board/Board';
+import Boards from './data/boards.json';
+
+function App() {
+  const [boards, setBoards] = useState(Boards);
+  return (
+    <>
+      <AppToolbar boards={boards} index={0} />
+      <Board board={boards} index={0}/>
+    </>
+  );
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'));
