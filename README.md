@@ -1,2 +1,6 @@
-# tp2-tiw08
+# TIW-08
 
+Projet réalisé par Lucas Vialatoux
+
+## TP1
+- Mise en place stack
