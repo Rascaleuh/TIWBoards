@@ -1,20 +1,34 @@
 /* eslint-disable */
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 import AppToolbar from './components/AppToolbar/AppToolbar';
 import Board from './components/Board/Board';
-import Boards from './data/boards.json';
+import store from './store/index';
 
 function App() {
-  const [boards, setBoards] = useState(Boards);
   return (
-    <>
-      <AppToolbar boards={boards} index={0} />
-      <Board board={boards} index={0}/>
-    </>
+    <Router>
+      <AppToolbar />
+      <Switch>
+        <Route path="/:id">
+          <Board />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

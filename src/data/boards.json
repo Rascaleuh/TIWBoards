@@ -1,14 +1,14 @@
 [
     {
       "type": "board",
-      "id": "1",
+      "id": "0",
       "title": "TIW 8",
       "active": true,
       "notes": "",
       "postits":[
         {
           "type": "postit",
-          "board": "1",
+          "board": "0",
           "title": "TP 1",
           "text": "Le TP porte sur des rappels de developpement Web",
           "visible": false,
@@ -16,7 +16,7 @@
         },
         {
           "type": "postit",
-          "board": "1",
+          "board": "0",
           "title": "TP 2",
           "text": "Le TP porte sur la creation d'un outil de presentation HTML",
           "visible": true,
@@ -24,7 +24,7 @@
         },
         {
           "type": "postit",
-          "board": "1",
+          "board": "0",
           "title": "TP 3",
           "text": "Le TP 3",
           "visible": true,
@@ -32,7 +32,7 @@
         },
         {
           "type": "postit",
-          "board": "1",
+          "board": "0",
           "title": "TP 4",
           "text": "Le TP 4",
           "visible": true,
@@ -41,7 +41,7 @@
       ]},
     {
       "type": "board",
-      "board": "2",
+      "id": "1",
       "title": "Courses",
       "active": false,
       "notes": "",
