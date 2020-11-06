@@ -5,11 +5,16 @@ import { useParams } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import {
+  Button, Grid,
+} from '@material-ui/core';
+
+// Icons
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setBoard } from '../../actions/index';
+import { setBoard, deletePostit } from '../../actions/index';
 
 const useStyles = makeStyles({
   title: {
@@ -39,13 +44,20 @@ function Board() {
     }
   }, [id]);
 
+  const deleteMyPostit = (i) => {
+    dispatch(deletePostit(parseInt(i, 10)));
+  };
+
   return (
     <Grid container justify="center" spacing={2} className={classes.grid}>
       {
-        currentBoard.postits.map((postit) => (
+        currentBoard.postits.map((postit, i) => (
           <Grid item key={`card-${postit.title}`}>
             <div className={classes.color} style={{ backgroundColor: postit.color }} />
             <Card style={{ backgroundColor: '#FBF397' }} className={classes.card}>
+              <Button color="primary" onClick={() => deleteMyPostit(i)}>
+                <DeleteIcon />
+              </Button>
               <CardContent>
                 <h2>{postit.title}</h2>
                 <hr style={{ borderTop: `1px solid ${postit.color}` }} />

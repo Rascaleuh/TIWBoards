@@ -10,13 +10,14 @@ import { makeStyles } from '@material-ui/core/styles';
 // ICONS
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // REACT
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // ACTIONS
-import { createBoard, createPostit } from '../../actions/index';
+import { createBoard, createPostit, deleteBoard } from '../../actions/index';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -69,6 +70,12 @@ function AppToolbar() {
     }
   };
 
+  const deleteWall = (i) => {
+    if (index !== i) {
+      dispatch(deleteBoard(parseInt(i, 10)));
+    }
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -77,11 +84,16 @@ function AppToolbar() {
             <List component="nav" aria-label="drawer" className={classes.drawer}>
               {
                 boards.map((board, i) => (
-                  <Link to={`/${i}`} key={`link-${board.title}`}>
-                    <ListItem button selected={index === i} onClick={toggleDrawer}>
-                      { board.title }
-                    </ListItem>
-                  </Link>
+                  <div key={`link-${board.title}`}>
+                    <Link to={`/${i}`}>
+                      <ListItem button selected={index === i} onClick={toggleDrawer}>
+                        { board.title }
+                      </ListItem>
+                    </Link>
+                    <Button color="primary" onClick={() => deleteWall(i)}>
+                      <DeleteIcon />
+                    </Button>
+                  </div>
                 ))
               }
             </List>

@@ -34,9 +34,9 @@ export function createPostit(title, content, index) {
   };
 }
 
-export function deletePostit(text) {
+export function deletePostit(id) {
   return {
     type: DELETE_POSTIT,
-    text,
+    id,
   };
 }

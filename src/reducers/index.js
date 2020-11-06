@@ -34,7 +34,20 @@ function rootReducer(state = initialState, action) {
         ],
       };
     case DELETE_POSTIT:
-      return 0;
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, state.index),
+          {
+            ...state.boards[state.index],
+            postits: [
+              ...state.boards[state.index].postits.slice(0, action.id),
+              ...state.boards[state.index].postits.slice(action.id + 1),
+            ],
+          },
+          ...state.boards.slice(state.index + 1, state.boards.length),
+        ],
+      };
     case CREATE_BOARD:
       return {
         ...state,
@@ -50,7 +63,13 @@ function rootReducer(state = initialState, action) {
         ],
       };
     case DELETE_BOARD:
-      return { ...state, boards: [state.boards] };
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, action.id),
+          ...state.boards.slice(action.id + 1),
+        ],
+      };
     case SET_BOARD:
       return { ...state, index: action.id };
     default:
