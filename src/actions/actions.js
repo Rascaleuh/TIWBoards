@@ -11,32 +11,36 @@ export function createBoard(boardName) {
   };
 }
 
-export function deleteBoard(id) {
+export function deleteBoard(id, meta) {
   return {
     type: DELETE_BOARD,
+    meta,
     id,
   };
 }
 
-export function setBoard(id) {
+export function setBoard(id, meta) {
   return {
     type: SET_BOARD,
+    meta,
     id,
   };
 }
 
-export function createPostit(title, content, index) {
+export function createPostit(postit, meta) {
   return {
     type: CREATE_POSTIT,
-    title,
-    content,
-    index,
+    meta,
+    index: postit.index,
+    title: postit.title,
+    content: postit.content,
   };
 }
 
-export function deletePostit(id) {
+export function deletePostit(id, meta) {
   return {
     type: DELETE_POSTIT,
+    meta,
     id,
   };
 }

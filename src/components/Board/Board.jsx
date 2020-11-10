@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 
@@ -14,7 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setBoard, deletePostit } from '../../actions/index';
+import { setBoard, deletePostit } from '../../actions/actions';
 
 const useStyles = makeStyles({
   title: {
@@ -36,16 +37,15 @@ const useStyles = makeStyles({
 function Board() {
   const { id } = useParams();
   const classes = useStyles();
-  const currentBoard = useSelector((state) => state.boards[state.index]);
+  const currentBoard = useSelector((state) => state.boards[id]);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (id !== currentBoard.index) {
-      dispatch(setBoard(parseInt(id, 10)));
-    }
+      dispatch(setBoard(parseInt(id, 10), { propagate: true }));
   }, [id]);
 
-  const deleteMyPostit = (i) => {
-    dispatch(deletePostit(parseInt(i, 10)));
+  const handleDeletePostit = (i) => {
+    dispatch(deletePostit(parseInt(i, 10), { propagate: true }));
   };
 
   return (
@@ -55,7 +55,7 @@ function Board() {
           <Grid item key={`card-${postit.title}`}>
             <div className={classes.color} style={{ backgroundColor: postit.color }} />
             <Card style={{ backgroundColor: '#FBF397' }} className={classes.card}>
-              <Button color="primary" onClick={() => deleteMyPostit(i)}>
+              <Button color="primary" onClick={() => handleDeletePostit(i)}>
                 <DeleteIcon />
               </Button>
               <CardContent>

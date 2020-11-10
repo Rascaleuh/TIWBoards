@@ -17,7 +17,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // ACTIONS
-import { createBoard, createPostit, deleteBoard } from '../../actions/index';
+import { createBoard, createPostit, deleteBoard } from '../../actions/actions';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -43,6 +43,7 @@ function AppToolbar() {
   const boards = useSelector((state) => state.boards);
   const index = useSelector((state) => state.index);
   const dispatch = useDispatch();
+
   const toggleDrawer = () => {
     setshowDrawer(!showDrawer);
   };
@@ -57,7 +58,11 @@ function AppToolbar() {
 
   const handlePostitForm = () => {
     if (postitTitle !== '' || postitContent !== '') {
-      dispatch(createPostit(postitTitle, postitContent, index));
+      dispatch(createPostit({
+        title: postitTitle,
+        content: postitContent,
+        index,
+      }, { propagate: true }));
       togglePostitForm();
     }
   };
@@ -72,7 +77,7 @@ function AppToolbar() {
 
   const deleteWall = (i) => {
     if (index !== i) {
-      dispatch(deleteBoard(parseInt(i, 10)));
+      dispatch(deleteBoard(parseInt(i, 10), { propagate: true }));
     }
   };
 

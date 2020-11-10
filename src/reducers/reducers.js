@@ -1,6 +1,6 @@
 import {
   CREATE_POSTIT, DELETE_POSTIT, CREATE_BOARD, DELETE_BOARD, SET_BOARD,
-} from '../actions/index';
+} from '../actions/actions';
 
 import BOARDS from '../data/boards.json';
 
