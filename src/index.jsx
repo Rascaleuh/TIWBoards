@@ -1,12 +1,12 @@
 import React from 'react';
-// import { isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   HashRouter as Router,
   Switch,
   Route,
-  // Redirect,
+  Redirect,
 } from 'react-router-dom';
 
 import AppToolbar from './components/AppToolbar/AppToolbar';
@@ -21,8 +21,8 @@ function App() {
     <Router>
       <AppToolbar />
       <Switch>
-        {/* { isMobile
-        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> } */}
+        { isMobile
+        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> }
         <Route path="/board/:boardId/postit/:postitId">
           <Board mobile />
         </Route>
