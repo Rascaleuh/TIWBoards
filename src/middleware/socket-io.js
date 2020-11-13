@@ -34,7 +34,7 @@ export const propagateSocket = () => (next) => (action) => {
         break;
     }
   } else if (action.type === 'SET_BOARD') {
-    window.location.hash = action.id;
+    window.location.hash = `/board/${action.id}`;
   }
   next(action);
 };

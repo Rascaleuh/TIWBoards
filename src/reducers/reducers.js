@@ -26,7 +26,7 @@ function rootReducer(state = initialState, action) {
                 title: action.title,
                 text: action.content,
                 visible: true,
-                color: '#0E0',
+                color: action.color,
               },
             ],
           },

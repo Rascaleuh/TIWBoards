@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // REACT
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TwitterPicker } from 'react-color';
 
 // ACTIONS
 import { createBoard, createPostit, deleteBoard } from '../../actions/actions';
@@ -35,9 +36,12 @@ function AppToolbar() {
   const [showPostitForm, setshowPostitForm] = useState(false);
   const [showWallForm, setShowWallForm] = useState(false);
 
+  // Postit inputs
   const [postitTitle, setPostitTitle] = useState('');
   const [postitContent, setPostitContent] = useState('');
+  const [postitColor, setPostitColor] = useState('#7bdcb5');
 
+  // Wall inputs
   const [wallTitle, setWallTitle] = useState('');
 
   const boards = useSelector((state) => state.boards);
@@ -61,6 +65,7 @@ function AppToolbar() {
       dispatch(createPostit({
         title: postitTitle,
         content: postitContent,
+        color: postitColor,
         index,
       }, { propagate: true }));
       togglePostitForm();
@@ -90,7 +95,7 @@ function AppToolbar() {
               {
                 boards.map((board, i) => (
                   <div key={`link-${board.title}`}>
-                    <Link to={`/${i}`}>
+                    <Link to={`/board/${i}`}>
                       <ListItem button selected={index === i} onClick={toggleDrawer}>
                         { board.title }
                       </ListItem>
@@ -136,8 +141,12 @@ function AppToolbar() {
           <strong>{boards[index].title}</strong>
         </DialogTitle>
         <DialogContent>
-          <TextField id="postit-title" label="Titre" fullWidth onChange={(e) => setPostitTitle(e.target.value)} />
-          <TextField id="postit-content" label="Contenu" fullWidth multiline rows="3" onChange={(e) => setPostitContent(e.target.value)} />
+          <TextField required id="postit-title" label="Titre" fullWidth onChange={(e) => setPostitTitle(e.target.value)} />
+          <TextField required id="postit-content" label="Contenu" fullWidth multiline rows="3" onChange={(e) => setPostitContent(e.target.value)} />
+          <TwitterPicker
+            color={postitColor}
+            onChangeComplete={(e) => setPostitColor(e.hex)}
+          />
         </DialogContent>
         <DialogActions>
           <Button color="secondary" onClick={togglePostitForm}>Annuler</Button>
