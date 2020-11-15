@@ -46,6 +46,7 @@ npm run start   # Run server on localhost:300
 * Drawing must be done with a mouse as we don't have a pen to test on tablet and mobile.
 * The drawing color is that of the post-it.
 * In order to create a new board, you need to hit `Enter` after typing your board name. There is no button to confirm the creation.
+* The fullscreen button is at the bottom right of the screen when on desktop.
 
 ## :speech_balloon: Authors
 
