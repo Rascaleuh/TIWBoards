@@ -160,7 +160,6 @@ function Postit({ postit, id }) {
     const {
       width, height, top, left,
     } = refCanvas.current.getBoundingClientRect();
-    console.log(ev.changedTouches);
     const mouseX = ((ev.pageX || ev.changedTouches[0].pageX) - left) / width;
     const mouseY = ((ev.pageY || ev.changedTouches[0].pageY) - top) / height;
 

@@ -141,9 +141,14 @@ function AppToolbar() {
           <Typography variant="h6" className={classes.title}>
             {boards[index] && boards[index].title}
           </Typography>
-          <Fab color="secondary" aria-label="add" onClick={togglePostitForm}>
-            <AddIcon />
-          </Fab>
+          {
+            boards[index]
+            && (
+              <Fab color="secondary" aria-label="add" onClick={togglePostitForm}>
+                <AddIcon />
+              </Fab>
+            )
+          }
         </Toolbar>
       </AppBar>
 

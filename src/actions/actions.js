@@ -17,7 +17,6 @@ export function createBoard(boardName, meta) {
 }
 
 export function deleteBoard(id, meta) {
-  console.log(meta);
   return {
     type: DELETE_BOARD,
     meta,

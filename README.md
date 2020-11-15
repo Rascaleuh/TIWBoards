@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to 8-tws-tp2 👋</h1>
+<h1 align="center">Welcome to tp2-tiw08 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-6.14.7-blue.svg" />
@@ -8,11 +8,12 @@
   </a>
 </p>
 
-> TP1 for 8-TWS running express & react
+
+> Boards & post-its application
 
 ### 🏠 [Homepage](https://forge.univ-lyon1.fr/p1600354/tp2-tiw08#readme)
 
-### ✨ [Demo](https://idoux-tws.herokuapp.com)
+### ✨ [Demo](https://idoux-vialatoux.herokuapp.com/#/board/0)
 
 ## :pencil: Prerequisites
 
@@ -32,15 +33,21 @@ npm run build   # Build sources
 npm run start   # Run server on localhost:300
 ```
 
-## :wrench: ​Run tests
+## :wrench: ​Development mode
 
+Run each of this command in two terminals :
 ```sh
-npm run test
+npm run dev     # Build souces and watch files
+npm run start   # Run server on localhost:300
 ```
+
+## :loudspeaker: Informations
+
+* Drawing must be done with a mouse as we don't have a pen to test on tablet and mobile.
+* The drawing color is that of the post-it.
+* In order to create a new board, you need to hit `Enter` after typing your board name. There is no button to confirm the creation.
 
 ## :speech_balloon: Authors
 
 👤 **IDOUX Etienne**
 👤 **VIALATOUX Lucas**
-
-* Website: https://lacruz.org

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import ReactDOM from 'react-dom';
