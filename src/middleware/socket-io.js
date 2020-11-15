@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import store from '../store/store';
 import {
   setBoard, deleteBoard, createPostit, deletePostit,
+  addDrawPoints, resetDrawPoints,
 } from '../actions/actions';
 
 const socket = io();
@@ -30,6 +31,20 @@ export const propagateSocket = () => (next) => (action) => {
       case 'DELETE_POSTIT':
         socket.emit('action', { type: 'delete_postit', value: action.id });
         break;
+      case 'ADD_DRAW_POINTS':
+        socket.emit('action', {
+          type: 'add_draw_points',
+          value: {
+            id: action.id,
+            clickX: action.clickX,
+            clickY: action.clickY,
+            clickDrag: action.clickDrag,
+          },
+        });
+        break;
+      case 'RESET_DRAW_POINTS':
+        socket.emit('action', { type: 'reset_draw_points', value: action.id });
+        break;
       default:
         break;
     }
@@ -52,6 +67,12 @@ socket.on('action', (msg) => {
       break;
     case 'delete_postit':
       store.dispatch(deletePostit(msg.value, { propagate: false }));
+      break;
+    case 'add_draw_points':
+      store.dispatch(addDrawPoints(msg.value, { propagate: false }));
+      break;
+    case 'reset_draw_points':
+      store.dispatch(resetDrawPoints(msg.value, { propagate: false }));
       break;
     default:
       break;

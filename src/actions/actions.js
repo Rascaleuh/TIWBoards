@@ -5,6 +5,8 @@ export const CREATE_POSTIT = 'CREATE_POSTIT';
 export const DELETE_POSTIT = 'DELETE_POSTIT';
 export const NEXT_POSTIT = 'NEXT_POSTIT';
 export const PREVIOUS_POSTIT = 'PREVIOUS_POSTIT';
+export const ADD_DRAW_POINTS = 'ADD_DRAW_POINTS';
+export const RESET_DRAW_POINTS = 'RESET_DRAW_POINTS';
 
 export function createBoard(boardName) {
   return {
@@ -48,17 +50,20 @@ export function deletePostit(id, meta) {
   };
 }
 
-export function nextPostit(id, meta) {
+export function addDrawPoints(drawing, meta) {
   return {
-    type: NEXT_POSTIT,
+    type: ADD_DRAW_POINTS,
     meta,
-    id,
+    id: drawing.id,
+    clickX: drawing.clickX,
+    clickY: drawing.clickY,
+    clickDrag: drawing.clickDrag,
   };
 }
 
-export function previousPostit(id, meta) {
+export function resetDrawPoints(id, meta) {
   return {
-    type: PREVIOUS_POSTIT,
+    type: RESET_DRAW_POINTS,
     meta,
     id,
   };

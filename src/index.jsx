@@ -15,19 +15,21 @@ import store from './store/store';
 
 function App() {
   return (
-    // /#/boards/:id
-    // /#/boards/:id/postit/:id
-    // /#/boards/:id/postit/:id/edit
     <Router>
       <AppToolbar />
       <Switch>
-        { isMobile
-        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> }
+        {/* { isMobile
+        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> } */}
         <Route path="/board/:boardId/postit/:postitId">
           <Board mobile />
         </Route>
         <Route path="/board/:boardId">
-          <Board />
+          {
+            isMobile
+              ? <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" />
+              : <Board />
+          }
+          {/* <Board /> */}
         </Route>
       </Switch>
     </Router>

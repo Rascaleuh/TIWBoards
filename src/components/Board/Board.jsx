@@ -24,34 +24,36 @@ function Board({ mobile }) {
   const { boardId, postitId } = useParams();
   const classes = useStyles();
   const currentBoard = useSelector((state) => state.boards[boardId]);
-  const currentPostit = useSelector((state) => state.boards[boardId].postits[postitId]);
+  const currentPostit = currentBoard === undefined
+    ? null : useSelector((state) => state.boards[boardId].postits[postitId]);
   const dispatch = useDispatch();
+
+  let showBoard = true;
 
   useEffect(() => {
     dispatch(setBoard(parseInt(boardId, 10), { propagate: true }));
-    /* eslint-disable no-console */
-  }, [boardId, postitId]);
+    showBoard = currentBoard !== undefined;
+  }, [boardId]);
 
   return (
     <>
       {
-        currentBoard !== undefined
-        && (
-          <Grid container justify="center" spacing={2} className={classes.grid}>
-            {
-              mobile
-                ? (
-                  <Postit postit={currentPostit} id={parseInt(postitId, 10)} />
-                )
-                : (
-                  currentBoard !== undefined
-                  && currentBoard.postits.map((postit, i) => (
-                    <Postit postit={postit} id={i} key={`card-${postit.title}`} />
-                  ))
-                )
-            }
-          </Grid>
-        )
+        showBoard
+          && (
+            <Grid container justify="center" spacing={2} className={classes.grid}>
+              {
+                mobile
+                  ? (
+                    <Postit postit={currentPostit} id={parseInt(postitId, 10)} />
+                  )
+                  : (
+                    currentBoard.postits.map((postit, i) => (
+                      <Postit postit={postit} id={i} key={`card-${postit.title}`} />
+                    ))
+                  )
+              }
+            </Grid>
+          )
       }
       {
         mobile && <BottomToolbar />
