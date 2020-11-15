@@ -32,12 +32,10 @@ const useStyles = makeStyles({
     marginTop: '2rem',
   },
   card: {
-    width: '25rem',
     minHeight: '15rem',
     position: 'relative',
   },
   postitColor: {
-    width: '100%',
     height: '1rem',
     borderRadius: '4px 4px 0 0',
   },
@@ -161,8 +159,9 @@ function Postit({ postit, id }) {
     const {
       width, height, top, left,
     } = refCanvas.current.getBoundingClientRect();
-    const mouseX = (ev.pageX - left) / width;
-    const mouseY = (ev.pageY - top) / height;
+    console.log(ev.changedTouches);
+    const mouseX = ((ev.pageX || ev.changedTouches[0].pageX) - left) / width;
+    const mouseY = ((ev.pageY || ev.changedTouches[0].pageY) - top) / height;
 
     switch (pType) {
       case 'mouse':
@@ -186,8 +185,8 @@ function Postit({ postit, id }) {
     const {
       width, height, top, left,
     } = refCanvas.current.getBoundingClientRect();
-    const mouseX = (ev.pageX - left) / width;
-    const mouseY = (ev.pageY - top) / height;
+    const mouseX = ((ev.pageX || ev.changedTouches[0].pageX) - left) / width;
+    const mouseY = ((ev.pageY || ev.changedTouches[0].pageY) - top) / height;
     if (paint) {
       addClick(mouseX, mouseY, true);
     } else if (gesture) {
@@ -254,6 +253,9 @@ function Postit({ postit, id }) {
             onPointerDown={pointerDownHandler}
             onPointerMove={pointerMoveHandler}
             onPointerUp={pointerUpEvent}
+            onTouchStart={pointerDownHandler}
+            onTouchMove={pointerMoveHandler}
+            onTouchEnd={pointerUpEvent}
           />
         </CardContent>
         <CardActions className={classes.actions}>
