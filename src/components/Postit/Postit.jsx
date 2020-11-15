@@ -74,6 +74,12 @@ const useStyles = makeStyles({
 });
 
 function Postit({ postit, id }) {
+  if (!postit) {
+    return (
+      <p>Pas de postit ici !</p>
+    );
+  }
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const { boardId } = useParams();
@@ -160,9 +166,6 @@ function Postit({ postit, id }) {
 
     switch (pType) {
       case 'mouse':
-        gesture = true;
-        addGesture(mouseX, mouseY);
-        redraw();
         break;
       case 'pen':
         paint = true;
@@ -170,6 +173,9 @@ function Postit({ postit, id }) {
         redraw();
         break;
       case 'touch':
+        gesture = true;
+        addGesture(mouseX, mouseY);
+        redraw();
         break;
       default:
         break;
@@ -264,8 +270,12 @@ function Postit({ postit, id }) {
 }
 
 Postit.propTypes = {
-  postit: PropTypes.objectOf(PropTypes.any).isRequired,
+  postit: PropTypes.objectOf(PropTypes.any),
   id: PropTypes.number.isRequired,
+};
+
+Postit.defaultProps = {
+  postit: undefined,
 };
 
 export default Postit;

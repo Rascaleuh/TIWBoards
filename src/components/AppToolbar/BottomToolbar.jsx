@@ -41,7 +41,7 @@ function BottomToolbar() {
         </IconButton>
         <div className={classes.grow} />
         {
-          previousPostit >= 0
+          currentBoard && previousPostit >= 0
             ? (
               <Link to={`/board/${boardId}/postit/${previousPostit}`}>
                 <IconButton style={{ color: 'white' }}>
@@ -56,7 +56,7 @@ function BottomToolbar() {
             )
         }
         {
-          nextPostit < currentBoard.postits.length
+          currentBoard && nextPostit < currentBoard.postits.length
             ? (
               <Link to={`/board/${boardId}/postit/${nextPostit}`}>
                 <IconButton style={{ color: 'white' }}>
