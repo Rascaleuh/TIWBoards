@@ -127,7 +127,7 @@ function AppToolbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {boards[index].title}
+            {boards[index] && boards[index].title}
           </Typography>
           <Fab color="secondary" aria-label="add" onClick={togglePostitForm}>
             <AddIcon />
@@ -138,7 +138,7 @@ function AppToolbar() {
       <Dialog open={showPostitForm} onClose={togglePostitForm}>
         <DialogTitle>
           Ajouter un post-it sur
-          <strong>{boards[index].title}</strong>
+          <strong>{boards[index] && boards[index].title}</strong>
         </DialogTitle>
         <DialogContent>
           <TextField required id="postit-title" label="Titre" fullWidth onChange={(e) => setPostitTitle(e.target.value)} />

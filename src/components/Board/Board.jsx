@@ -24,27 +24,22 @@ function Board({ mobile }) {
   const { boardId, postitId } = useParams();
   const classes = useStyles();
   const currentBoard = useSelector((state) => state.boards[boardId]);
-  const currentPostit = currentBoard === undefined
-    ? null : useSelector((state) => state.boards[boardId].postits[postitId]);
   const dispatch = useDispatch();
-
-  let showBoard = true;
 
   useEffect(() => {
     dispatch(setBoard(parseInt(boardId, 10), { propagate: true }));
-    showBoard = currentBoard !== undefined;
   }, [boardId]);
 
   return (
     <>
       {
-        showBoard
+        currentBoard
           && (
             <Grid container justify="center" spacing={2} className={classes.grid}>
               {
                 mobile
                   ? (
-                    <Postit postit={currentPostit} id={parseInt(postitId, 10)} />
+                    <Postit postit={currentBoard.postits[postitId]} id={parseInt(postitId, 10)} />
                   )
                   : (
                     currentBoard.postits.map((postit, i) => (

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import ReactDOM from 'react-dom';
@@ -19,8 +20,9 @@ function App() {
       <AppToolbar />
       <Switch>
         { isMobile
-        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> }
+        && <Redirect exact from="/board/:boardId" to="/board/:boardId/postit/0" /> }
         <Route exact path="/board/:boardId/postit/:postitId">
+          {console.log('redirected here')}
           <Board mobile />
         </Route>
         <Route exact path="/board/:boardId">
