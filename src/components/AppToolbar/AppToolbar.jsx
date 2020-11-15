@@ -2,7 +2,7 @@
 import {
   AppBar, Drawer, Fab, IconButton, List, ListItem, Toolbar, Typography,
   Dialog, DialogTitle, TextField, DialogContent, DialogActions, Button,
-  Divider,
+  Divider, ListItemSecondaryAction, ListItemText,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +27,13 @@ const useStyles = makeStyles(() => ({
   drawer: {
     flexGrow: 1,
     width: '15rem',
+  },
+  wallLink: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+  textField: {
+    margin: '1rem 0',
   },
 }));
 
@@ -74,7 +81,7 @@ function AppToolbar() {
 
   const handleWallForm = (e) => {
     if (e.key === 'Enter') {
-      dispatch(createBoard(wallTitle));
+      dispatch(createBoard(wallTitle, { propagate: true }));
       setShowWallForm(false);
       toggleWallForm();
     }
@@ -91,37 +98,42 @@ function AppToolbar() {
       <AppBar position="static">
         <Toolbar>
           <Drawer anchor="left" open={showDrawer} onClose={toggleDrawer}>
-            <List component="nav" aria-label="drawer" className={classes.drawer}>
-              {
-                boards.map((board, i) => (
-                  <div key={`link-${board.title}`}>
-                    <Link to={`/board/${i}`}>
-                      <ListItem button selected={index === i} onClick={toggleDrawer}>
-                        { board.title }
-                      </ListItem>
-                    </Link>
-                    <Button color="primary" onClick={() => deleteWall(i)}>
-                      <DeleteIcon />
-                    </Button>
-                  </div>
-                ))
-              }
-            </List>
-            <Divider />
+            <Button color="primary" onClick={toggleWallForm}>Ajouter un mur</Button>
             {
               showWallForm
               && (
-              <div>
-                <TextField
-                  id="wall-title"
-                  label="Titre du mur"
-                  onChange={(e) => setWallTitle(e.target.value)}
-                  onKeyDown={handleWallForm}
-                />
-              </div>
+                <div>
+                  <TextField
+                    id="wall-title"
+                    label="Titre du mur"
+                    autoComplete="off"
+                    onChange={(e) => setWallTitle(e.target.value)}
+                    onKeyDown={handleWallForm}
+                  />
+                </div>
               )
             }
-            <Button color="primary" onClick={toggleWallForm}>Ajouter un mur</Button>
+            <Divider />
+            <List component="nav" aria-label="drawer" className={classes.drawer}>
+              {
+                boards.map((board, i) => (
+                  <Link to={`/board/${i}`} className={classes.wallLink} key={`link-${board.title}`}>
+                    <ListItem selected={index === i}>
+                      <ListItemText primary={board.title} onClick={toggleDrawer} />
+                      {
+                        index !== i && (
+                          <ListItemSecondaryAction>
+                            <Button color="primary" onClick={() => deleteWall(i)}>
+                              <DeleteIcon />
+                            </Button>
+                          </ListItemSecondaryAction>
+                        )
+                      }
+                    </ListItem>
+                  </Link>
+                ))
+              }
+            </List>
           </Drawer>
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
             <MenuIcon />
@@ -138,11 +150,29 @@ function AppToolbar() {
       <Dialog open={showPostitForm} onClose={togglePostitForm}>
         <DialogTitle>
           Ajouter un post-it sur
-          <strong>{boards[index] && boards[index].title}</strong>
+          <strong>{boards[index] && ` ${boards[index].title}`}</strong>
         </DialogTitle>
         <DialogContent>
-          <TextField required id="postit-title" label="Titre" fullWidth onChange={(e) => setPostitTitle(e.target.value)} />
-          <TextField required id="postit-content" label="Contenu" fullWidth multiline rows="3" onChange={(e) => setPostitContent(e.target.value)} />
+          <TextField
+            required
+            id="postit-title"
+            label="Titre"
+            fullWidth
+            autoComplete="off"
+            onChange={(e) => setPostitTitle(e.target.value)}
+            className={classes.textField}
+          />
+          <TextField
+            required
+            id="postit-content"
+            label="Contenu"
+            fullWidth
+            multiline
+            rows="3"
+            onChange={(e) => setPostitContent(e.target.value)}
+            autoComplete="off"
+            className={classes.textField}
+          />
           <TwitterPicker
             color={postitColor}
             onChangeComplete={(e) => setPostitColor(e.hex)}

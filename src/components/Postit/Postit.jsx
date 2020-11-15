@@ -32,8 +32,8 @@ const useStyles = makeStyles({
     marginTop: '2rem',
   },
   card: {
-    minHeight: '15rem',
     position: 'relative',
+    width: '350px',
   },
   postitColor: {
     height: '1rem',
@@ -82,6 +82,7 @@ function Postit({ postit, id }) {
   const dispatch = useDispatch();
   const { boardId } = useParams();
   const boards = useSelector((state) => state.boards);
+
   // canvas pos
   const {
     clickX, clickY, clickDrag,
@@ -165,8 +166,13 @@ function Postit({ postit, id }) {
 
     switch (pType) {
       case 'mouse':
+        paint = true;
+        addClick(mouseX, mouseY, false);
+        redraw();
         break;
       case 'pen':
+        // Nous n'avons pas de stylet pour tester
+        // Le code reste quand même disponible si vous pouvez tester
         paint = true;
         addClick(mouseX, mouseY, false);
         redraw();
@@ -196,7 +202,6 @@ function Postit({ postit, id }) {
   };
 
   const pointerUpEvent = () => {
-    // console.log(`[[${gesturePoints.join('],[')}]]`);
     if (gesture) {
       const gestureName = recognizer.check(gesturePoints).name;
       switch (gestureName) {
@@ -204,13 +209,11 @@ function Postit({ postit, id }) {
           if (boardId + 1 < boards.length) {
             window.location.hash = `/board/${parseInt(boardId, 10) + 1}/postit/0`;
           }
-          // window.location.hash = `/board/${boardId}/postit/${parseInt(postitId, 10) + 1}`;
           break;
         case 'leftArrow':
           if (boardId - 1 >= 0) {
             window.location.hash = `/board/${parseInt(boardId, 10) - 1}/postit/0`;
           }
-          // window.location.hash = `/board/${boardId}/postit/${parseInt(postitId, 10) - 1}`;
           break;
         default:
           break;
@@ -235,17 +238,25 @@ function Postit({ postit, id }) {
     dispatch(resetDrawPoints(id, { propagate: true }));
   };
 
+  const preventDefault = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     redraw();
   }, [postit]);
 
+  useEffect(() => {
+    document.body.addEventListener('touchmove', preventDefault, { passive: false });
+    return () => document.body.removeEventListener('touchmove', preventDefault);
+  }, []);
+
   return (
     <Grid item>
-      <div className={classes.postitColor} style={{ backgroundColor: postit.color }} />
       <Card style={{ backgroundColor: '#FBF397' }} className={classes.card}>
+        <div className={classes.postitColor} style={{ backgroundColor: postit.color }} />
         <CardContent>
           <h2>{postit.title}</h2>
-          <hr style={{ borderTop: `1px solid ${postit.color}` }} />
           <p>{ postit.text }</p>
           <canvas
             className={classes.stroke}
@@ -253,9 +264,6 @@ function Postit({ postit, id }) {
             onPointerDown={pointerDownHandler}
             onPointerMove={pointerMoveHandler}
             onPointerUp={pointerUpEvent}
-            onTouchStart={pointerDownHandler}
-            onTouchMove={pointerMoveHandler}
-            onTouchEnd={pointerUpEvent}
           />
         </CardContent>
         <CardActions className={classes.actions}>

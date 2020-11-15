@@ -8,14 +8,16 @@ export const PREVIOUS_POSTIT = 'PREVIOUS_POSTIT';
 export const ADD_DRAW_POINTS = 'ADD_DRAW_POINTS';
 export const RESET_DRAW_POINTS = 'RESET_DRAW_POINTS';
 
-export function createBoard(boardName) {
+export function createBoard(boardName, meta) {
   return {
     type: CREATE_BOARD,
+    meta,
     boardName,
   };
 }
 
 export function deleteBoard(id, meta) {
+  console.log(meta);
   return {
     type: DELETE_BOARD,
     meta,
