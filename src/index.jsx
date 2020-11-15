@@ -18,18 +18,13 @@ function App() {
     <Router>
       <AppToolbar />
       <Switch>
-        {/* { isMobile
-        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> } */}
-        <Route path="/board/:boardId/postit/:postitId">
+        { isMobile
+        && <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" /> }
+        <Route exact path="/board/:boardId/postit/:postitId">
           <Board mobile />
         </Route>
-        <Route path="/board/:boardId">
-          {
-            isMobile
-              ? <Redirect from="/board/:boardId" to="/board/:boardId/postit/0" />
-              : <Board />
-          }
-          {/* <Board /> */}
+        <Route exact path="/board/:boardId">
+          <Board />
         </Route>
       </Switch>
     </Router>
