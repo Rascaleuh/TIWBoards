@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to tp2-tiw08 👋</h1>
+<h1 align="center">Welcome to TIWBoards 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-6.14.7-blue.svg" />
